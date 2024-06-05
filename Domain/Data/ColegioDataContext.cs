@@ -15,6 +15,11 @@ namespace Domain.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new Alumno.EntityConfiguration());
+            modelBuilder.ApplyConfiguration(new AlumnoGrado.EntityConfiguration());
+            modelBuilder.ApplyConfiguration(new Grado.EntityConfiguration());
+            modelBuilder.ApplyConfiguration(new Profesor.EntityConfiguration());
         }
     }
 }
