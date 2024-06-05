@@ -1,66 +1,64 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Service;
 using Service.Dtos;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Service;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlumnosController : ControllerBase
+    public class ProfesorController : ControllerBase
     {
-        private readonly IService<AlumnoDto> _alumnoService;
+        private readonly IService<ProfesorDto> _profesorService;
 
-        public AlumnosController(IService<AlumnoDto> alumnoService)
+        public ProfesorController(IService<ProfesorDto> profesorService)
         {
-            _alumnoService = alumnoService;
+            _profesorService = profesorService;
         }
 
-        [HttpGet("get-all-alumnos")]
+        [HttpGet("get-all-profesores")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             try
             {
-                var alumnos = await _alumnoService.GetAllAsync(cancellationToken);
-                return Ok(alumnos);
+                var profesores = await _profesorService.GetAllAsync(cancellationToken);
+                return Ok(profesores);
             }
             catch (Exception)
             {
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error getting alumnos."
+                    Message = "Error getting profesores."
                 });
 
             }
         }
 
-        [HttpGet("get-alumno/{id}")]
+        [HttpGet("get-profesor/{id}")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             try
             {
-                var alumno = await _alumnoService.GetByIdAsync(cancellationToken, id);
-                return Ok(alumno);
+                var profesor = await _profesorService.GetByIdAsync(cancellationToken, id);
+                return Ok(profesor);
             }
             catch (Exception)
             {
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error getting alumno."
+                    Message = "Error getting profesor."
                 });
 
             }
         }
 
-        [HttpPost("add-alumno")]
-        public async Task<IActionResult> SaveAlumno([FromBody] AlumnoDto dto, CancellationToken cancellationToken)
+        [HttpPost("add-profesor")]
+        public async Task<IActionResult> SaveProfesor([FromBody] ProfesorDto dto, CancellationToken cancellationToken)
         {
             try
             {
-                await _alumnoService.CreateAsync(dto, cancellationToken);
+                await _profesorService.CreateAsync(dto, cancellationToken);
                 return NoContent();
             }
             catch (Exception)
@@ -68,18 +66,18 @@ namespace WebApi.Controllers
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error creating alumno."
+                    Message = "Error creating profesor."
                 });
 
             }
         }
 
-        [HttpPut("update-alumno")]
-        public async Task<IActionResult> Put(AlumnoDto dto, CancellationToken cancellationToken)
+        [HttpPut("update-profesor")]
+        public async Task<IActionResult> Put(ProfesorDto dto, CancellationToken cancellationToken)
         {
             try
             {
-                await _alumnoService.UpdateAsync(dto, cancellationToken);
+                await _profesorService.UpdateAsync(dto, cancellationToken);
                 return NoContent();
             }
             catch (Exception)
@@ -87,17 +85,17 @@ namespace WebApi.Controllers
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error updating alumno."
+                    Message = "Error updating profesor."
                 });
             }
         }
 
-        [HttpDelete("delete-alumno/{id}")]
-        public async Task<IActionResult> DeleteAlumno(Guid id, CancellationToken cancellationToken)
+        [HttpDelete("delete-profesor/{id}")]
+        public async Task<IActionResult> DeleteProfesor(Guid id, CancellationToken cancellationToken)
         {
             try
             {
-                await _alumnoService.DeleteAsync(cancellationToken, id);
+                await _profesorService.DeleteAsync(cancellationToken, id);
                 return NoContent();
             }
             catch (Exception)
@@ -105,7 +103,7 @@ namespace WebApi.Controllers
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error deleting alumno."
+                    Message = "Error deleting profesor."
                 });
             }
         }

@@ -16,7 +16,7 @@ namespace Domain.Models
         {
             public void Configure(EntityTypeBuilder<Alumno> builder)
             {
-            
+
             }
         }
 

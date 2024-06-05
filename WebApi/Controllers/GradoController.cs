@@ -2,65 +2,63 @@
 using Service;
 using Service.Dtos;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlumnosController : ControllerBase
+    public class GradoController : ControllerBase
     {
-        private readonly IService<AlumnoDto> _alumnoService;
+        private readonly IService<GradoDto> _gradoService;
 
-        public AlumnosController(IService<AlumnoDto> alumnoService)
+        public GradoController(IService<GradoDto> gradoService)
         {
-            _alumnoService = alumnoService;
+            _gradoService = gradoService;
         }
 
-        [HttpGet("get-all-alumnos")]
+        [HttpGet("get-all-grados")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             try
             {
-                var alumnos = await _alumnoService.GetAllAsync(cancellationToken);
-                return Ok(alumnos);
+                var grados = await _gradoService.GetAllAsync(cancellationToken);
+                return Ok(grados);
             }
             catch (Exception)
             {
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error getting alumnos."
+                    Message = "Error getting grados."
                 });
 
             }
         }
 
-        [HttpGet("get-alumno/{id}")]
+        [HttpGet("get-grado/{id}")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             try
             {
-                var alumno = await _alumnoService.GetByIdAsync(cancellationToken, id);
-                return Ok(alumno);
+                var grado = await _gradoService.GetByIdAsync(cancellationToken, id);
+                return Ok(grado);
             }
             catch (Exception)
             {
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error getting alumno."
+                    Message = "Error getting grado."
                 });
 
             }
         }
 
-        [HttpPost("add-alumno")]
-        public async Task<IActionResult> SaveAlumno([FromBody] AlumnoDto dto, CancellationToken cancellationToken)
+        [HttpPost("add-grado")]
+        public async Task<IActionResult> SaveGrado([FromBody] GradoDto dto, CancellationToken cancellationToken)
         {
             try
             {
-                await _alumnoService.CreateAsync(dto, cancellationToken);
+                await _gradoService.CreateAsync(dto, cancellationToken);
                 return NoContent();
             }
             catch (Exception)
@@ -68,18 +66,18 @@ namespace WebApi.Controllers
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error creating alumno."
+                    Message = "Error creating grado."
                 });
 
             }
         }
 
-        [HttpPut("update-alumno")]
-        public async Task<IActionResult> Put(AlumnoDto dto, CancellationToken cancellationToken)
+        [HttpPut("update-grado")]
+        public async Task<IActionResult> Put(GradoDto dto, CancellationToken cancellationToken)
         {
             try
             {
-                await _alumnoService.UpdateAsync(dto, cancellationToken);
+                await _gradoService.UpdateAsync(dto, cancellationToken);
                 return NoContent();
             }
             catch (Exception)
@@ -87,17 +85,17 @@ namespace WebApi.Controllers
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error updating alumno."
+                    Message = "Error updating grado."
                 });
             }
         }
 
-        [HttpDelete("delete-alumno/{id}")]
-        public async Task<IActionResult> DeleteAlumno(Guid id, CancellationToken cancellationToken)
+        [HttpDelete("delete-grado/{id}")]
+        public async Task<IActionResult> DeleteGrado(Guid id, CancellationToken cancellationToken)
         {
             try
             {
-                await _alumnoService.DeleteAsync(cancellationToken, id);
+                await _gradoService.DeleteAsync(cancellationToken, id);
                 return NoContent();
             }
             catch (Exception)
@@ -105,7 +103,7 @@ namespace WebApi.Controllers
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "Error deleting alumno."
+                    Message = "Error deleting grado."
                 });
             }
         }
