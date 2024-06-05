@@ -1,6 +1,16 @@
+using Domain.Data;
+using Microsoft.EntityFrameworkCore;
+using Repositories;
+using Service;
+using Service.Dtos;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<ColegioDataContext>(options => options.UseInMemoryDatabase("ColegioDatabase"));
+
 // Add services to the container.
+builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IService<AlumnoDto>, AlumnoService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
