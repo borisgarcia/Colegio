@@ -1,5 +1,6 @@
 ﻿using Domain.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Repositories
 {
@@ -29,6 +30,11 @@ namespace Repositories
         public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _dataContext.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
+        }
+
+        public async Task<IReadOnlyList<T>> FilterAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        {
+            return await _dataContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
         }
 
         public async Task<T> GetByIdAsync(CancellationToken cancellationToken, params object[] keyValues)

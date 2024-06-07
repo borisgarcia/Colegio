@@ -10,7 +10,7 @@ namespace Domain.Models
         public required string Apellidos { get; set; }
         public Genero Genero { get; set; }
         public ICollection<Grado> Grados { get; set; }
-
+        public string NombreCompleto => Nombre + " " + Apellidos;
         public class EntityConfiguration : IEntityTypeConfiguration<Profesor>
         {
             public void Configure(EntityTypeBuilder<Profesor> builder)

@@ -7,10 +7,12 @@ namespace Service
     public class GradoService : IService<GradoDto>
     {
         private readonly IRepository<Grado> _repository;
-
-        public GradoService(IRepository<Grado> repository)
+        private readonly IRepository<Profesor> _profesorRepository;
+        public GradoService(IRepository<Grado> repository,
+            IRepository<Profesor> profesorRepository)
         {
             _repository = repository;
+            _profesorRepository = profesorRepository;
         }
 
         public async Task CreateAsync(GradoDto entity, CancellationToken cancellationToken)
@@ -32,13 +34,18 @@ namespace Service
         {
             var grados = await _repository.GetAllAsync(cancellationToken);
 
-            return grados.Select(Map).ToList();
+            var profesorIds = grados.Select(x => x.ProfesorId).ToList();
+            var profesores = await _profesorRepository.FilterAsync(x => profesorIds.Contains(x.Id), cancellationToken);
+
+            return grados.Select(x => new GradoDto(x.Id, x.Nombre, x.ProfesorId, profesores.FirstOrDefault(p => x.ProfesorId == p.Id).NombreCompleto)).ToList();
         }
 
         public async Task<GradoDto> GetByIdAsync(CancellationToken cancellationToken, params object[] keyValues)
         {
             var grado = await _repository.GetByIdAsync(cancellationToken, keyValues);
-            return Map(grado);
+            var profesor = await _profesorRepository.GetByIdAsync(cancellationToken, grado.ProfesorId);
+
+            return new GradoDto(grado.Id, grado.Nombre, grado.ProfesorId, profesor.NombreCompleto);
         }
 
         public async Task UpdateAsync(GradoDto entity, CancellationToken cancellationToken)
@@ -63,11 +70,6 @@ namespace Service
                 ProfesorId = grado.ProfesorId,
                 Nombre = grado.Nombre
             };
-        }
-
-        private GradoDto Map(Grado grado)
-        {
-            return new GradoDto(grado.Id, grado.Nombre, grado.ProfesorId);
         }
     }
 }

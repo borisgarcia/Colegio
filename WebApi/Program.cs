@@ -15,6 +15,10 @@ builder.Services.AddDbContext<ColegioDataContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IService<AlumnoDto>, AlumnoService>();
+builder.Services.AddScoped<IService<ProfesorDto>, ProfesorService>();
+builder.Services.AddScoped<IService<GradoDto>, GradoService>();
+builder.Services.AddScoped<IService<AlumnoGradoDto>, AlumnoGradoService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
