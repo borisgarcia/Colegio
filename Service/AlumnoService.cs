@@ -71,7 +71,7 @@ namespace Service
 
         private AlumnoDto Map(Alumno alumno) 
         {
-            return new AlumnoDto(alumno.Id, alumno.Nombre, alumno.Apellidos, alumno.Genero, alumno.FechaNacimiento);
+            return new AlumnoDto(alumno.Id, alumno.Nombre, alumno.Apellidos, alumno.NombreCompleto, alumno.Genero, alumno.FechaNacimiento, null);
         }
     }
 }

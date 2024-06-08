@@ -69,7 +69,7 @@ namespace Service
 
         private ProfesorDto Map(Profesor profesor)
         {
-            return new ProfesorDto(profesor.Id, profesor.Nombre, profesor.Apellidos, profesor.Genero);
+            return new ProfesorDto(profesor.Id, profesor.Nombre, profesor.Apellidos, profesor.NombreCompleto, profesor.Genero);
         }
     }
 }

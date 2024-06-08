@@ -11,7 +11,7 @@ namespace Domain.Models
         public Genero Genero { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public ICollection<AlumnoGrado> AlumnoGrados { get; set; }
-
+        public string NombreCompleto => Nombre + " " + Apellidos;
         public class EntityConfiguration : IEntityTypeConfiguration<Alumno>
         {
             public void Configure(EntityTypeBuilder<Alumno> builder)
