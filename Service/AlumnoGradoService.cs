@@ -70,7 +70,7 @@ namespace Service
 
         private AlumnoGradoDto Map(AlumnoGrado alumnoGrado)
         {
-            return new AlumnoGradoDto(alumnoGrado.Id, alumnoGrado.AlumnoId, alumnoGrado.GradoId, alumnoGrado.Seccion);
+            return new AlumnoGradoDto(alumnoGrado.Id, alumnoGrado.GradoId, alumnoGrado.AlumnoId, alumnoGrado.Seccion, alumnoGrado.Grado.Nombre, alumnoGrado.Alumno.NombreCompleto);
         }
     }
 }

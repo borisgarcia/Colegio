@@ -1,6 +1,8 @@
 using Domain.Data;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
+using Repository;
 using Service;
 using Service.Dtos;
 
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<ColegioDataContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IRepository<AlumnoGrado>, AlumnoGradoRepository>();
 builder.Services.AddScoped<IService<AlumnoDto>, AlumnoService>();
 builder.Services.AddScoped<IService<ProfesorDto>, ProfesorService>();
 builder.Services.AddScoped<IService<GradoDto>, GradoService>();

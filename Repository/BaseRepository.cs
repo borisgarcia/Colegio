@@ -12,12 +12,12 @@ namespace Repositories
             _dataContext = context;        
         }
 
-        public async Task CreateAsync(T entity, CancellationToken cancellationToken)
+        public virtual async Task CreateAsync(T entity, CancellationToken cancellationToken)
         {
             await _dataContext.Set<T>().AddAsync(entity);
         }
 
-        public async Task DeleteAsync(CancellationToken cancellationToken, params object[] keyValues)
+        public virtual async Task DeleteAsync(CancellationToken cancellationToken, params object[] keyValues)
         {
             var entry = await GetByIdAsync(cancellationToken, keyValues);
             
@@ -27,27 +27,27 @@ namespace Repositories
             }
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken)
+        public virtual async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _dataContext.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public async Task<IReadOnlyList<T>> FilterAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        public virtual async Task<IReadOnlyList<T>> FilterAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
             return await _dataContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
         }
 
-        public async Task<T> GetByIdAsync(CancellationToken cancellationToken, params object[] keyValues)
+        public virtual async Task<T> GetByIdAsync(CancellationToken cancellationToken, params object[] keyValues)
         {
             return await _dataContext.Set<T>().FindAsync(keyValues, cancellationToken);
         }
 
-        public async Task SaveChangesAsync(CancellationToken cancellationToken)
+        public virtual async Task SaveChangesAsync(CancellationToken cancellationToken)
         {
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
 
-        public void UpdateAsync(T entity, CancellationToken cancellationToken)
+        public virtual void UpdateAsync(T entity, CancellationToken cancellationToken)
         {
             var entry = _dataContext.Entry(entity);
             entry.State = EntityState.Modified;
