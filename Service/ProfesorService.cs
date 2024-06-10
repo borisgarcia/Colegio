@@ -50,7 +50,7 @@ namespace Service
                 profesor.Apellidos = entity.Apellidos;
                 profesor.Nombre = entity.Nombre;
                 profesor.Genero = entity.Genero;
-
+                profesor.ModifiedDate = DateTime.UtcNow;
                 _repository.UpdateAsync(profesor, cancellationToken);
                 await _repository.SaveChangesAsync(cancellationToken);
             }
@@ -63,7 +63,8 @@ namespace Service
                 Id = profesor.Id,
                 Apellidos = profesor.Apellidos,
                 Nombre = profesor.Nombre,
-                Genero = profesor.Genero
+                Genero = profesor.Genero,
+                CreatedDate = DateTime.UtcNow
             };
         }
 

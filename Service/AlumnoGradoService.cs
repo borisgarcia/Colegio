@@ -51,6 +51,7 @@ namespace Service
                 alumnoGrado.AlumnoId = entity.AlumnoId;
                 alumnoGrado.GradoId = entity.GradoId;
                 alumnoGrado.Seccion = entity.Seccion;
+                alumnoGrado.ModifiedDate = DateTime.UtcNow;
 
                 _repository.UpdateAsync(alumnoGrado, cancellationToken);
                 await _repository.SaveChangesAsync(cancellationToken);
@@ -64,7 +65,8 @@ namespace Service
                 Id = alumnoGrado.Id,
                 AlumnoId = alumnoGrado.AlumnoId,
                 GradoId = alumnoGrado.GradoId,
-                Seccion = alumnoGrado.Seccion
+                Seccion = alumnoGrado.Seccion,
+                CreatedDate = DateTime.UtcNow
             };
         }
 

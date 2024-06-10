@@ -56,6 +56,7 @@ namespace Service
             {
                 grado.Nombre = entity.Nombre;
                 grado.ProfesorId = entity.ProfesorId;
+                grado.ModifiedDate = DateTime.UtcNow;
 
                 _repository.UpdateAsync(grado, cancellationToken);
                 await _repository.SaveChangesAsync(cancellationToken);
@@ -68,7 +69,8 @@ namespace Service
             {
                 Id = grado.Id,
                 ProfesorId = grado.ProfesorId,
-                Nombre = grado.Nombre
+                Nombre = grado.Nombre,
+                CreatedDate = DateTime.UtcNow
             };
         }
     }

@@ -8,10 +8,10 @@ using Service.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ColegioDataContext>(options =>
 {
-    options.UseInMemoryDatabase("ColegioDatabase");
-
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
 // Add services to the container.

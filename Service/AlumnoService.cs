@@ -51,6 +51,7 @@ namespace Service
                 alumno.Nombre = entity.Nombre;
                 alumno.Genero = entity.Genero;
                 alumno.FechaNacimiento = entity.FechaNacimiento;
+                alumno.ModifiedDate = DateTime.UtcNow;
 
                 _repository.UpdateAsync(alumno, cancellationToken);
                 await _repository.SaveChangesAsync(cancellationToken);
@@ -65,7 +66,8 @@ namespace Service
                 Apellidos = alumno.Apellidos,
                 Nombre = alumno.Nombre,
                 Genero = alumno.Genero,
-                FechaNacimiento = alumno.FechaNacimiento
+                FechaNacimiento = alumno.FechaNacimiento,
+                CreatedDate = DateTime.UtcNow
             };
         }
 
